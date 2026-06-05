@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>زاد الفنون — Zad for Arts</title>
+
+<!-- Cairo (local) for all Arabic & English type -->
+
+<style>
+@font-face{
+  font-family:"Cairo";
+  src:url("fonts/Cairo-Variable.ttf") format("truetype");
+  font-weight:200 1000; font-style:normal; font-display:swap;
+}
+
+:root{
+  --white:#FFFFFF;
+  --black:#111111;
+  --purple:#8400A9;
+  --purple-600:#6E008C;
+  --purple-700:#57006E;
+  --purple-900:#2A0035;
+  --purple-50:#F8ECFB;
+  --purple-100:#EFD3F6;
+  --red:#FF0000;
+  --red-600:#D60000;
+  --cream:#FFF0C3;
+  --cream-50:#FFFBF0;
+  --teal:#1FD3C3;
+  --ink:#111111;
+  --ink-2:#4A4453;
+  --ink-3:#837D8C;
+  --line:#E7E3EC;
+
+  --serif:"Cairo","Helvetica Neue",Arial,sans-serif;
+  --sans:"Cairo","Helvetica Neue",Arial,sans-serif;
+
+  --container:1240px;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+  --shadow-md:0 10px 30px rgba(42,0,53,.10);
+  --shadow-lg:0 24px 60px rgba(42,0,53,.16);
+  --shadow-purple:0 16px 40px rgba(132,0,169,.30);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:var(--sans);
+  background:var(--white);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;}
+a{text-decoration:none;color:inherit;}
+.container{max-width:var(--container);margin:0 auto;padding:0 28px;}
+
+/* ----- diamond motif ----- */
+.diamond{display:inline-block;width:9px;height:9px;transform:rotate(45deg);background:var(--purple);flex:0 0 auto;}
+.diamond.red{background:var(--red);}
+.diamond.teal{background:var(--teal);}
+.diamond.cream{background:var(--cream);}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header{
+  position:fixed;top:0;right:0;left:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 0;
+  transition:background var(--ease) .4s, box-shadow var(--ease) .4s, padding var(--ease) .4s;
+}
+.site-header .container{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.site-header.scrolled{
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--line);
+  padding:10px 0;
+}
+.brand-logo{height:56px;width:auto;transition:height var(--ease) .4s;}
+.site-header.scrolled .brand-logo{height:46px;}
+/* logo is dark; on transparent hero header we put it on a frosted chip for legibility */
+.logo-chip{display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border-radius:14px;background:rgba(255,255,255,.92);box-shadow:var(--shadow-md);transition:background var(--ease) .4s,box-shadow var(--ease) .4s,padding var(--ease) .4s;}
+.site-header.scrolled .logo-chip{background:transparent;box-shadow:none;padding:0;}
+
+.nav-links{display:flex;align-items:center;gap:34px;}
+.nav-links a{
+  font-weight:600;font-size:17px;color:#fff;
+  position:relative;padding:6px 2px;letter-spacing:.01em;
+  text-shadow:0 1px 14px rgba(0,0,0,.45);
+  transition:color var(--ease) .3s, transform var(--ease) .3s;
+}
+.site-header.scrolled .nav-links a{color:var(--ink-2);text-shadow:none;}
+.nav-links a::after{
+  content:"";position:absolute;left:50%;transform:translateX(-50%);
+  bottom:-3px;height:2.5px;width:0;border-radius:2px;
+  background:var(--red);transition:width var(--ease) .35s;
+}
+.nav-links a:hover{color:#fff;transform:translateY(-2px);}
+.site-header.scrolled .nav-links a:hover{color:var(--purple-600);}
+.nav-links a:hover::after{width:100%;}
+.nav-links a.active{color:#fff;}
+.site-header.scrolled .nav-links a.active{color:var(--purple-700);}
+.nav-links a.active::after{width:100%;}
+
+.header-actions{display:flex;align-items:center;gap:18px;}
+.lang-toggle{
+  font-weight:700;font-size:15px;letter-spacing:.04em;color:#fff;
+  background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.4);
+  padding:9px 16px;border-radius:999px;cursor:pointer;
+  backdrop-filter:blur(6px);transition:all var(--ease) .3s;
+}
+.site-header.scrolled .lang-toggle{color:var(--ink-2);background:transparent;border-color:var(--line);}
+.lang-toggle:hover{background:rgba(255,255,255,.3);}
+.site-header.scrolled .lang-toggle:hover{border-color:var(--purple);color:var(--purple-600);}
+.btn-friend{
+  font-family:var(--sans);font-weight:700;font-size:16px;
+  background:var(--purple);color:#fff;border:none;cursor:pointer;
+  padding:12px 24px;border-radius:999px;
+  box-shadow:var(--shadow-purple);transition:all var(--ease) .3s;
+  white-space:nowrap;
+}
+.btn-friend:hover{background:var(--purple-600);transform:translateY(-2px);}
+.btn-friend:active{background:var(--purple-700);transform:translateY(0) scale(.98);}
+
+.menu-toggle{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px;}
+.menu-toggle span{width:26px;height:2.5px;background:#fff;border-radius:2px;transition:background var(--ease) .3s;}
+.site-header.scrolled .menu-toggle span{background:var(--ink);}
+
+/* ============================================================
+   HERO CAROUSEL
+   ============================================================ */
+.hero{position:relative;height:100svh;min-height:600px;overflow:hidden;background:#000;}
+.hero-slide{
+  position:absolute;inset:0;opacity:0;
+  transition:opacity 1.1s var(--ease);
+  pointer-events:none;
+}
+.hero-slide.active{opacity:1;pointer-events:auto;}
+.hero-slide img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:scale(1.08);transition:transform 7s linear;
+}
+.hero-slide.active img{transform:scale(1);}
+.hero-scrim{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(180deg, rgba(17,0,22,.30) 0%, rgba(17,0,22,0) 30%, rgba(17,0,22,0) 45%, rgba(42,0,53,.55) 80%, rgba(42,0,53,.78) 100%);
+}
+.hero-scrim::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(280deg, rgba(132,0,169,.22) 0%, rgba(132,0,169,0) 55%);
+  mix-blend-mode:multiply;
+}
+.hero-content{
+  position:absolute;right:0;left:0;bottom:0;
+  z-index:3;padding-bottom:clamp(70px,11vh,130px);
+}
+.hero-content .container{max-width:var(--container);}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:11px;
+  color:#fff;font-weight:700;font-size:15px;letter-spacing:.04em;
+  margin-bottom:22px;opacity:0;transform:translateY(16px);
+}
+.hero-title{
+  font-family:var(--serif);font-weight:800;color:#fff;
+  font-size:clamp(40px,6.4vw,92px);line-height:1.18;
+  max-width:17ch;margin:0 0 30px;
+  text-shadow:0 4px 40px rgba(0,0,0,.5);
+  opacity:0;transform:translateY(22px);
+}
+.hero-title .accent{color:#fff;position:relative;}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--sans);font-weight:700;font-size:18px;
+  background:var(--purple);color:#fff;border:none;cursor:pointer;
+  padding:17px 34px;border-radius:999px;
+  box-shadow:var(--shadow-purple);transition:all var(--ease) .3s;
+  opacity:0;transform:translateY(22px);
+}
+.hero-cta:hover{background:var(--purple-600);transform:translateY(-3px);}
+.hero-cta:active{transform:translateY(0) scale(.98);}
+.hero-cta .arrow{font-size:20px;transition:transform var(--ease) .3s;}
+.hero-cta:hover .arrow{transform:translateX(-6px);}
+
+/* staged entrance for the active slide */
+.hero-slide.active .hero-eyebrow{animation:riseIn .7s var(--ease) .25s forwards;}
+.hero-slide.active .hero-title{animation:riseIn .8s var(--ease) .38s forwards;}
+.hero-slide.active .hero-cta{animation:riseIn .8s var(--ease) .55s forwards;}
+@keyframes riseIn{to{opacity:1;transform:translateY(0);}}
+@media (prefers-reduced-motion:reduce){
+  .hero-slide .hero-eyebrow,.hero-slide .hero-title,.hero-slide .hero-cta{opacity:1;transform:none;animation:none;}
+  .hero-slide img{transition:none;transform:none;}
+}
+
+/* arrows */
+.hero-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:58px;height:58px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.45);
+  backdrop-filter:blur(8px);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;transition:all var(--ease) .3s;
+}
+.hero-arrow:hover{background:rgba(255,255,255,.26);transform:translateY(-50%) scale(1.06);}
+.hero-arrow svg{width:24px;height:24px;}
+.hero-arrow.prev{right:28px;}   /* RTL: prev on the right */
+.hero-arrow.next{left:28px;}
+
+/* dots */
+.hero-dots{
+  position:absolute;bottom:30px;left:50%;transform:translateX(-50%);
+  z-index:5;display:flex;gap:12px;
+}
+.hero-dot{
+  width:34px;height:4px;border-radius:999px;border:none;cursor:pointer;
+  background:rgba(255,255,255,.4);transition:background var(--ease) .3s;padding:0;
+}
+.hero-dot.active{background:#fff;}
+
+/* ============================================================
+   WHO WE ARE
+   ============================================================ */
+.who{position:relative;padding:clamp(80px,11vh,150px) 0;background:var(--white);overflow:hidden;}
+.who-deco{
+  position:absolute;top:-60px;left:-80px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle, rgba(132,0,169,.07), transparent 70%);pointer-events:none;
+}
+.who-grid{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(40px,6vw,90px);
+  align-items:center;position:relative;
+}
+.who-figure{position:relative;}
+.who-figure img{
+  width:100%;height:100%;max-height:620px;object-fit:cover;
+  border-radius:20px;box-shadow:var(--shadow-lg);
+}
+.who-figure .frame-accent{
+  position:absolute;bottom:-22px;right:-22px;width:62%;height:58%;
+  border:2px solid var(--purple);border-radius:20px;z-index:-1;
+}
+.who-figure .silk-badge{
+  position:absolute;top:22px;right:22px;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(6px);
+  padding:10px 16px;border-radius:999px;font-weight:700;font-size:14px;color:var(--purple-700);
+  box-shadow:var(--shadow-md);display:flex;align-items:center;gap:9px;
+}
+.who-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.who-eyebrow span{font-weight:700;font-size:15px;letter-spacing:.06em;color:var(--purple-600);}
+.who-title{
+  font-family:var(--serif);font-weight:800;font-size:clamp(38px,4.6vw,62px);
+  line-height:1.2;margin:0 0 26px;color:var(--ink);
+}
+.who-body{font-size:18.5px;line-height:2.05;color:var(--ink-2);margin:0 0 20px;max-width:54ch;}
+.who-tagline{
+  font-family:var(--serif);font-style:italic;font-weight:700;
+  font-size:clamp(22px,2.5vw,30px);line-height:1.6;
+  color:var(--purple);margin:30px 0 32px;
+  padding-right:22px;border-right:3px solid var(--red);
+}
+.who-cta{
+  display:inline-flex;align-items:center;gap:11px;
+  font-family:var(--sans);font-weight:700;font-size:17px;
+  background:var(--purple);color:#fff;border:none;cursor:pointer;
+  padding:15px 30px;border-radius:999px;
+  box-shadow:var(--shadow-purple);transition:all var(--ease) .3s;
+}
+.who-cta:hover{background:var(--purple-600);transform:translateY(-2px);}
+.who-cta:active{transform:translateY(0) scale(.98);}
+.who-cta .arrow{transition:transform var(--ease) .3s;}
+.who-cta:hover .arrow{transform:translateX(-5px);}
+
+/* ============================================================
+   INSTAGRAM
+   ============================================================ */
+.insta{padding:clamp(70px,9vh,120px) 0 clamp(80px,10vh,130px);background:var(--cream-50);}
+.insta-head{text-align:center;margin-bottom:46px;}
+.insta-eyebrow{display:inline-flex;align-items:center;gap:11px;justify-content:center;margin-bottom:16px;}
+.insta-eyebrow span{font-weight:700;font-size:15px;letter-spacing:.06em;color:var(--purple-600);}
+.insta-title{
+  font-family:var(--serif);font-weight:800;font-size:clamp(34px,4vw,54px);
+  margin:0;color:var(--ink);line-height:1.25;
+}
+.insta-frame{
+  background:#fff;border-radius:20px;padding:14px;
+  box-shadow:var(--shadow-md);border:1px solid var(--line);
+  min-height:300px;overflow:hidden;
+}
+.insta-cta-wrap{text-align:center;margin-top:40px;}
+.insta-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--sans);font-weight:700;font-size:17px;
+  background:#fff;color:var(--purple-700);border:2px solid var(--purple-100);cursor:pointer;
+  padding:14px 30px;border-radius:999px;transition:all var(--ease) .3s;
+}
+.insta-cta:hover{border-color:var(--purple);background:var(--purple-50);transform:translateY(-2px);}
+.insta-cta svg{width:21px;height:21px;}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer{background:var(--white);border-top:1px solid var(--line);padding:64px 0 30px;}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:50px;align-items:start;}
+.footer-brand img{height:88px;width:auto;margin-bottom:18px;}
+.footer-brand p{color:var(--ink-3);font-size:15.5px;line-height:1.9;max-width:38ch;margin:0;}
+.footer-col h4{font-weight:700;font-size:15px;color:var(--ink);margin:6px 0 18px;letter-spacing:.02em;}
+.footer-col a{display:flex;align-items:center;gap:9px;color:var(--ink-2);font-size:15.5px;padding:7px 0;transition:color var(--ease) .25s;}
+.footer-col a:hover{color:var(--purple-600);}
+.footer-col a .diamond{width:7px;height:7px;background:var(--cream);opacity:0;transition:opacity var(--ease) .25s;}
+.footer-col a:hover .diamond{opacity:1;}
+.footer-social{display:flex;gap:12px;margin-top:6px;}
+.footer-social a{
+  width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;color:var(--ink-2);
+  transition:all var(--ease) .3s;
+}
+.footer-social a:hover{border-color:var(--purple);background:var(--purple-50);color:var(--purple-600);transform:translateY(-2px);}
+.footer-social svg{width:19px;height:19px;}
+.footer-bottom{
+  margin-top:48px;padding-top:24px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  color:var(--ink-3);font-size:14px;
+}
+.footer-bottom .strip{display:flex;align-items:center;gap:8px;}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:900px){
+  .nav-links,.header-actions .lang-toggle,.header-actions .btn-friend{display:none;}
+  .menu-toggle{display:flex;}
+  .who-grid{grid-template-columns:1fr;gap:44px;}
+  .who-figure .frame-accent{display:none;}
+  .footer-grid{grid-template-columns:1fr;gap:40px;}
+  .hero-arrow{width:48px;height:48px;}
+  .hero-arrow.prev{right:14px;}
+  .hero-arrow.next{left:14px;}
+}
+@media (max-width:560px){
+  .container{padding:0 18px;}
+  .hero-title{font-size:34px;line-height:1.25;}
+  .brand-logo{height:46px;}
+  .hero-cta{font-size:16px;padding:15px 26px;}
+}
+
+/* mobile menu */
+.mobile-menu{
+  position:fixed;inset:0;z-index:200;background:rgba(255,255,255,.98);
+  backdrop-filter:blur(10px);display:flex;flex-direction:column;
+  padding:90px 32px 40px;gap:6px;
+  transform:translateX(100%);transition:transform var(--ease) .45s;
+}
+.mobile-menu.open{transform:translateX(0);}
+.mobile-menu a{font-family:var(--serif);font-weight:700;font-size:28px;color:var(--ink);padding:16px 0;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;}
+.mobile-menu .mm-actions{margin-top:26px;display:flex;flex-direction:column;gap:14px;}
+.mobile-menu .btn-friend{display:inline-flex;justify-content:center;}
+.mobile-menu .mm-close{position:absolute;top:24px;left:24px;background:none;border:none;font-size:34px;color:var(--ink);cursor:pointer;line-height:1;}
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header class="site-header" id="header">
+  <div class="container">
+    <a href="index.html" class="logo-chip" aria-label="زاد الفنون">
+      <img src="assets/logos/zad-logo-black.png" alt="زاد الفنون — Zad for Arts" class="brand-logo">
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">الرئيسية</a>
+      <a href="about.html">عن زاد الفنون</a>
+      <a href="بناء-القدرات.html">بناء القدرات</a>
+      <a href="الشراكات-الثقافية.html">الشراكات الثقافية</a>
+      <a href="#" data-pending="events">الفعاليات</a>
+      <a href="#" data-pending="support">ادعمنا</a>
+    </nav>
+    <div class="header-actions">
+      <button class="lang-toggle" id="langToggle">EN</button>
+      <a href="#" data-pending="friends" class="btn-friend">كن من أصدقائنا</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" id="mmClose" aria-label="إغلاق">&times;</button>
+  <a href="index.html" class="active-mm"><span class="diamond cream"></span>الرئيسية</a>
+  <a href="about.html"><span class="diamond cream"></span>عن زاد الفنون</a>
+  <a href="بناء-القدرات.html"><span class="diamond cream"></span>بناء القدرات</a>
+  <a href="الشراكات-الثقافية.html"><span class="diamond cream"></span>الشراكات الثقافية</a>
+  <a href="#" data-pending="events"><span class="diamond cream"></span>الفعاليات</a>
+  <a href="#" data-pending="support"><span class="diamond cream"></span>ادعمنا</a>
+  <div class="mm-actions">
+    <a href="#" data-pending="friends" class="btn-friend">كن من أصدقائنا</a>
+    <button class="lang-toggle" style="color:var(--ink-2);background:transparent;border-color:var(--line);">English</button>
+  </div>
+</div>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <!-- Slide 1 -->
+  <div class="hero-slide active">
+    <img src="assets/images/home/hero-slide-1.jpg" alt="المدرج الروماني في عمّان أثناء حفل موسيقي">
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-eyebrow"><span class="diamond cream"></span> زاد الفنون · الأردن</div>
+        <h1 class="hero-title">حيث تجد الفنون الأدائية <span class="accent">صوتها</span></h1>
+        <a href="بناء-القدرات.html" class="hero-cta">اكتشف برامجنا <span class="arrow">←</span></a>
+      </div>
+    </div>
+  </div>
+  <!-- Slide 2 -->
+  <div class="hero-slide">
+    <img src="assets/images/home/hero-slide-2.jpg" alt="عرض رقص شعبي على المسرح">
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-eyebrow"><span class="diamond cream"></span> المسرح · الموسيقى · الرقص</div>
+        <h1 class="hero-title">الفنون في قلب الحياة المجتمعية</h1>
+        <a href="about.html" class="hero-cta">تعرّف علينا <span class="arrow">←</span></a>
+      </div>
+    </div>
+  </div>
+  <!-- Slide 3 -->
+  <div class="hero-slide">
+    <img src="assets/images/home/hero-slide-3.jpg" alt="عرض رقص معاصر بإضاءة حمراء">
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="container">
+        <div class="hero-eyebrow"><span class="diamond cream"></span> نستثمر في الفنانين</div>
+        <h1 class="hero-title">نصنع المستقبل، ونرعى الإرث الثقافي</h1>
+        <a href="#" data-pending="friends" class="hero-cta">كن من أصدقائنا <span class="arrow">←</span></a>
+      </div>
+    </div>
+  </div>
+
+  <button class="hero-arrow prev" id="heroPrev" aria-label="السابق">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+  <button class="hero-arrow next" id="heroNext" aria-label="التالي">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+
+  <div class="hero-dots" id="heroDots">
+    <button class="hero-dot active" aria-label="الشريحة 1"></button>
+    <button class="hero-dot" aria-label="الشريحة 2"></button>
+    <button class="hero-dot" aria-label="الشريحة 3"></button>
+  </div>
+</section>
+
+<!-- ===================== WHO WE ARE ===================== -->
+<section class="who" id="who">
+  <div class="who-deco"></div>
+  <div class="container">
+    <div class="who-grid">
+      <div class="who-figure">
+        <img src="assets/images/home/who-we-are.jpg" alt="عرض رقص معاصر — زاد الفنون">
+        <span class="frame-accent"></span>
+        <span class="silk-badge"><span class="diamond"></span> منذ 2023</span>
+      </div>
+      <div class="who-text">
+        <div class="who-eyebrow"><span class="diamond"></span><span>من نحن؟</span></div>
+        <h2 class="who-title">من نحن؟</h2>
+        <p class="who-body">زاد الفنون مبادرة ثقافية غير ربحية أُطلقت عام 2023، تمثّل المسار الثقافي للجمعية الثقافية العربية وصندوق سمير عبدالهادي للثقافة والفنون. تهدف إلى تعزيز الفنون الأدائية في الأردن، وترسيخ حضورها كعنصر حيّ وأساسي في نسيج الحياة المجتمعية.</p>
+        <p class="who-body">نعمل على تمكين الفنانين الشباب في مجالات المسرح والموسيقى والرقص، كما ندعم المؤسسات الثقافية المستقلة عبر التمويل المرن وتطوير القدرات التشغيلية وتعزيز الإنتاج الإبداعي، بما يوسّع من أثرها ويسهم في بناء بيئة ثقافية مستدامة.</p>
+        <p class="who-tagline">نستثمر في الأثر والإرث الثقافي لبناء جيل المستقبل.</p>
+        <a href="about.html" class="who-cta">تعرّف على المزيد <span class="arrow">←</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSTAGRAM ===================== -->
+<section class="insta" id="instagram">
+  <div class="container">
+    <div class="insta-head">
+      <div class="insta-eyebrow"><span class="diamond red"></span><span>تابعنا</span><span class="diamond"></span></div>
+      <h2 class="insta-title">تابعنا على انستغرام</h2>
+    </div>
+    <div class="insta-frame">
+      <iframe src="https://cdn.lightwidget.com/widgets/0eb3b5091b065bc1ad1f2cda8661a3d9.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;min-height:300px;"></iframe>
+    </div>
+    <div class="insta-cta-wrap">
+      <a href="https://www.instagram.com/zadforarts" target="_blank" rel="noopener" class="insta-cta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg>
+        تابع حسابنا
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logos/zad-logo-black.png" alt="زاد الفنون">
+        <p>مبادرة ثقافية غير ربحية تدعم الفنون الأدائية في الأردن — المسرح والموسيقى والرقص — وتستثمر في الفنانين والمؤسسات الثقافية المستقلة.</p>
+      </div>
+      <div class="footer-col">
+        <h4>استكشف</h4>
+        <a href="about.html"><span class="diamond"></span>من نحن</a>
+        <a href="بناء-القدرات.html"><span class="diamond"></span>بناء القدرات</a>
+        <a href="الشراكات-الثقافية.html"><span class="diamond"></span>الشراكات الثقافية</a>
+        <a href="#" data-pending="events"><span class="diamond"></span>الفعاليات</a>
+        <a href="#" data-pending="support"><span class="diamond"></span>ادعمنا</a>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <a href="mailto:info@zadforarts.org"><span class="diamond"></span>info@zadforarts.org</a>
+        <a href="#"><span class="diamond"></span>عمّان، الأردن</a>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/zadforarts" target="_blank" rel="noopener" aria-label="انستغرام"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a>
+          <a href="#" aria-label="فيسبوك"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+          <a href="#" aria-label="يوتيوب"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"></polygon></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="strip"><span class="diamond"></span> © 2026 زاد الفنون · جميع الحقوق محفوظة</span>
+      <span>المسار الثقافي للجمعية الثقافية العربية وصندوق سمير عبدالهادي</span>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+<script>
+(function(){
+  /* ---- header scroll ---- */
+  var header=document.getElementById('header');
+  function onScroll(){ header.classList.toggle('scrolled', window.scrollY>40); }
+  onScroll(); window.addEventListener('scroll',onScroll,{passive:true});
+
+  /* ---- hero carousel ---- */
+  var slides=[].slice.call(document.querySelectorAll('.hero-slide'));
+  var dots=[].slice.call(document.querySelectorAll('.hero-dot'));
+  var idx=0, timer=null, DELAY=6000;
+  function go(n){
+    idx=(n+slides.length)%slides.length;
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+    dots.forEach(function(d,i){ d.classList.toggle('active', i===idx); });
+  }
+  function next(){ go(idx+1); }
+  function prev(){ go(idx-1); }
+  function play(){ stop(); timer=setInterval(next,DELAY); }
+  function stop(){ if(timer){ clearInterval(timer); timer=null; } }
+  document.getElementById('heroNext').addEventListener('click',function(){ next(); play(); });
+  document.getElementById('heroPrev').addEventListener('click',function(){ prev(); play(); });
+  dots.forEach(function(d,i){ d.addEventListener('click',function(){ go(i); play(); }); });
+  var heroEl=document.getElementById('hero');
+  heroEl.addEventListener('mouseenter',stop);
+  heroEl.addEventListener('mouseleave',play);
+  play();
+
+  /* ---- mobile menu ---- */
+  var mm=document.getElementById('mobileMenu');
+  document.getElementById('menuToggle').addEventListener('click',function(){ mm.classList.add('open'); });
+  document.getElementById('mmClose').addEventListener('click',function(){ mm.classList.remove('open'); });
+  [].slice.call(mm.querySelectorAll('a')).forEach(function(a){ a.addEventListener('click',function(){ mm.classList.remove('open'); }); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+/* =====================================================================
+   ZAD FOR ARTS — زاد الفنون
+   Design System · Color & Type Foundations
+   ---------------------------------------------------------------------
+   Non-profit performing arts organization in Jordan.
+   Always-white, gallery-bright aesthetic. Purple-led palette.
+   ===================================================================== */
+
+/* ----------  FONTS  ---------- */
+
+/* Cairo — provided variable font. Sans-serif, full Arabic + Latin.
+   Used for EVERYTHING — body, UI, labels, and all display headlines, in
+   both Arabic and English. The brand uses Cairo only (no serif). */
+@font-face {
+  font-family: "Cairo";
+  src: url("fonts/Cairo-Variable.ttf") format("truetype");
+  font-weight: 200 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ----------  CORE PALETTE  ---------- */
+  /* Ratio mirrors the logo: purple > red > cream > black, on white. */
+
+  --white:        #FFFFFF;   /* the canvas — always */
+  --black:        #111111;   /* text, headings, logo (near-black) */
+  --true-black:   #000000;   /* logo glyphs, max contrast */
+
+  --purple:       #8400A9;   /* PRIMARY — dominant brand color */
+  --red:          #FF0000;   /* SECONDARY — moderate use, energy/CTA */
+  --cream:        #FFF0C3;   /* ACCENT — warm fields, used sparingly */
+  --teal:         #1FD3C3;   /* logo accent (the "O" in FOR) — rare flourish */
+
+  /* ----------  PURPLE SCALE  ---------- */
+  --purple-50:   #F8ECFB;
+  --purple-100:  #EFD3F6;
+  --purple-200:  #DDA6EC;
+  --purple-300:  #C672DF;
+  --purple-400:  #A634C6;
+  --purple-500:  #8400A9;   /* === brand purple === */
+  --purple-600:  #6E008C;
+  --purple-700:  #57006E;
+  --purple-800:  #3F0050;
+  --purple-900:  #2A0035;
+
+  /* ----------  RED SCALE  ---------- */
+  --red-50:      #FFE9E9;
+  --red-100:     #FFC7C7;
+  --red-300:     #FF6B6B;
+  --red-500:     #FF0000;   /* === brand red === */
+  --red-600:     #D60000;
+  --red-700:     #A30000;
+
+  /* ----------  CREAM / WARM SCALE  ---------- */
+  --cream-50:    #FFFBF0;   /* faintest warm wash for section fields */
+  --cream-100:   #FFF6DC;
+  --cream-200:   #FFF0C3;   /* === brand cream === */
+  --cream-300:   #FCE49C;
+
+  /* ----------  NEUTRALS (warm-tinted greys)  ---------- */
+  --ink:         #111111;   /* = fg1, primary text */
+  --ink-2:       #4A4453;   /* fg2, secondary text (faint purple cast) */
+  --ink-3:       #837D8C;   /* fg3, muted captions / metadata */
+  --line:        #E7E3EC;   /* hairline borders */
+  --line-strong: #CFC8D6;   /* stronger dividers */
+  --field:       #F7F5F9;   /* neutral surface fill */
+
+  /* ----------  SEMANTIC FOREGROUND  ---------- */
+  --fg1: var(--ink);        /* headings, primary copy */
+  --fg2: var(--ink-2);      /* supporting copy */
+  --fg3: var(--ink-3);      /* captions, meta, placeholders */
+  --fg-on-purple: #FFFFFF;  /* text on purple fields */
+  --fg-on-red:    #FFFFFF;  /* text on red fields */
+  --fg-on-cream:  #2A0035;  /* deep purple text on cream */
+
+  /* ----------  SEMANTIC SURFACES  ---------- */
+  --bg:           var(--white);
+  --bg-warm:      var(--cream-50);   /* alternating section field */
+  --bg-purple:    var(--purple-500);
+  --bg-red:       var(--red-500);
+  --surface-card: var(--white);
+
+  /* ----------  BRAND ACCENT ROLES  ---------- */
+  --primary:      var(--purple-500);
+  --primary-hover:var(--purple-600);
+  --primary-press:var(--purple-700);
+  --secondary:    var(--cream);     /* secondary button = cream (dark text) */
+  --secondary-color: var(--red);    /* red remains the brand secondary color */
+  --secondary-hover: var(--cream-300);
+  --focus-ring:   color-mix(in oklch, var(--purple-500) 45%, transparent);
+
+  /* ----------  TYPE FAMILIES  ---------- */
+  /* Cairo only — used for both Arabic and English, display through body.
+     Aliases kept for backwards-compatible semantic naming. */
+  --display:       "Cairo", "Helvetica Neue", Arial, sans-serif; /* @kind font */
+  --serif-display: "Cairo", "Helvetica Neue", Arial, sans-serif; /* @kind font */
+  --serif-arabic:  "Cairo", "Helvetica Neue", Arial, sans-serif; /* @kind font */
+  --sans:          "Cairo", "Helvetica Neue", Arial, sans-serif; /* @kind font */
+  --sans-arabic:   "Cairo", "Helvetica Neue", Arial, sans-serif; /* @kind font */
+
+  /* ----------  TYPE SCALE (fluid-ish, fixed px)  ---------- */
+  --fs-display: 84px;   /* hero headline */
+  --fs-h1:      60px;
+  --fs-h2:      42px;
+  --fs-h3:      30px;
+  --fs-h4:      22px;
+  --fs-lead:    21px;   /* intro paragraphs */
+  --fs-body:    17px;
+  --fs-small:   15px;
+  --fs-caption: 13px;
+  --fs-eyebrow: 12px;   /* uppercase labels */
+
+  /* ----------  WEIGHTS  ---------- */
+  --w-light: 300;     /* @kind font */
+  --w-regular: 400;   /* @kind font */
+  --w-medium: 500;    /* @kind font */
+  --w-semibold: 600;  /* @kind font */
+  --w-bold: 700;      /* @kind font */
+
+  /* ----------  RADII  ---------- */
+  --r-xs: 4px;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 28px;
+  --r-pill: 999px;
+
+  /* ----------  SPACING (8pt base)  ---------- */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  /* ----------  SHADOWS (soft, gallery-light)  ---------- */
+  --shadow-sm: 0 1px 2px rgba(42, 0, 53, 0.06);
+  --shadow-md: 0 6px 20px rgba(42, 0, 53, 0.08);
+  --shadow-lg: 0 18px 48px rgba(42, 0, 53, 0.12);
+  --shadow-purple: 0 14px 34px rgba(132, 0, 169, 0.22);
+
+  /* ----------  MOTION  ---------- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);   /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);   /* @kind other */
+  --dur-fast: 140ms;   /* @kind other */
+  --dur: 240ms;        /* @kind other */
+  --dur-slow: 480ms;   /* @kind other */
+
+  /* ----------  LAYOUT  ---------- */
+  --container: 1200px;  /* @kind spacing */
+  --gutter: 24px;       /* @kind spacing */
+}
+
+/* =====================================================================
+   SEMANTIC TYPE CLASSES
+   ===================================================================== */
+
+.zad-display {
+  font-family: var(--serif-display);
+  font-weight: var(--w-bold);
+  font-size: var(--fs-display);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--fg1);
+  text-wrap: balance;
+}
+
+.zad-h1 {
+  font-family: var(--serif-display);
+  font-weight: var(--w-bold);
+  font-size: var(--fs-h1);
+  line-height: 1.04;
+  letter-spacing: -0.005em;
+  color: var(--fg1);
+  text-wrap: balance;
+}
+
+.zad-h2 {
+  font-family: var(--serif-display);
+  font-weight: var(--w-semibold);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  color: var(--fg1);
+  text-wrap: balance;
+}
+
+.zad-h3 {
+  font-family: var(--sans);
+  font-weight: var(--w-bold);
+  font-size: var(--fs-h3);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--fg1);
+}
+
+.zad-h4 {
+  font-family: var(--sans);
+  font-weight: var(--w-semibold);
+  font-size: var(--fs-h4);
+  line-height: 1.3;
+  color: var(--fg1);
+}
+
+.zad-lead {
+  font-family: var(--sans);
+  font-weight: var(--w-regular);
+  font-size: var(--fs-lead);
+  line-height: 1.55;
+  color: var(--fg2);
+}
+
+.zad-body {
+  font-family: var(--sans);
+  font-weight: var(--w-regular);
+  font-size: var(--fs-body);
+  line-height: 1.65;
+  color: var(--fg2);
+}
+
+.zad-small {
+  font-family: var(--sans);
+  font-weight: var(--w-regular);
+  font-size: var(--fs-small);
+  line-height: 1.5;
+  color: var(--fg2);
+}
+
+.zad-caption {
+  font-family: var(--sans);
+  font-weight: var(--w-medium);
+  font-size: var(--fs-caption);
+  line-height: 1.4;
+  color: var(--fg3);
+}
+
+.zad-eyebrow {
+  font-family: var(--sans);
+  font-weight: var(--w-bold);
+  font-size: var(--fs-eyebrow);
+  line-height: 1;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+/* Arabic display headline — serif Naskh, RTL */
+.zad-display-ar,
+.zad-h1-ar,
+.zad-h2-ar {
+  font-family: var(--serif-arabic);
+  direction: rtl;
+  font-weight: var(--w-bold);
+  line-height: 1.4;
+  color: var(--fg1);
+}
+.zad-display-ar { font-size: var(--fs-display); line-height: 1.25; }
+.zad-h1-ar { font-size: var(--fs-h1); line-height: 1.3; }
+.zad-h2-ar { font-size: var(--fs-h2); }
+
+/* Arabic body — Cairo sans, RTL */
+.zad-body-ar {
+  font-family: var(--sans-arabic);
+  direction: rtl;
+  font-weight: var(--w-regular);
+  font-size: var(--fs-body);
+  line-height: 1.9;
+  color: var(--fg2);
+}
